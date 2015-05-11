@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  #ajout de la ressources users pour 
+  #faire fonctionner Url de l'utilisateur
+  resources :users
+
   get 'users/new'
   #route pour inscription
   get '/signup' => 'users#new'

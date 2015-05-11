@@ -44,6 +44,8 @@ group :development, :test do
 
   #For test
   gem 'rspec-rails'
+  #introduit simplement des commentaires sur le modèle de données dans le fichier du modèle 
+  gem 'annotate'
   gem 'webrat', '0.7.1'
 end
 
