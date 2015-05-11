@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= titre %></title>
-    <%= csrf_meta_tag %>
-    <!-- Ajout des feuilles de style a notre application -->
-    <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
-    <%= stylesheet_link_tag 'blueprint/print',  :media => 'print' %>
-    <!-- Ajout des feuilles de style a notre application -->
-  </head>
-  <body>
-    <%= yield %>
-  </body>
+  	<head>
+	    <title><%= titre %></title>
+	    <%= csrf_meta_tag %>
+
+	    <!-- Ajout du _stylesheets -->
+	    <%= render 'layouts/stylesheets' %>
+	</head>
+	<body>
+    	<div class="container">
+    		<!-- Ajout du _header-->
+    		<%= render 'layouts/header' %>
+    		<section class="round">
+    			<%= yield %>
+    		</section>
+    		<!-- Ajout du _Footer -->
+    		<%= render 'layouts/footer' %>
+    	</div>
+    </body>
 </html>
