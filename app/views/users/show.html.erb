@@ -1,2 +1,19 @@
 <!-- Show users -->
-<%= @user.nom %>, <%= @user.email %>
+<table class="profile" summary="Information profil">
+  <tr>
+    <td class="main">
+      <h1>
+      	<!-- Gravatar -->
+        <%= gravatar_for @user %>
+        <%= @user.nom %>
+      </h1>
+    </td>
+    <td class="sidebar round">
+      <strong>Nom</strong> <%= @user.nom %><br />
+       <!-- path d'accès du user ex: /users/1-->
+      <strong>URL</strong>  <%= link_to user_path(@user), @user %>
+    </td>
+  </tr>
+</table>
+
+

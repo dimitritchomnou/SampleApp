@@ -1,5 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
-  def sef.up
+  def self.up
     create_table :users do |t|
       t.string :nom
       t.string :email
@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration
     end
   end
 
-  def self.down
+   def self.down
     drop_table :users
   end
 end
