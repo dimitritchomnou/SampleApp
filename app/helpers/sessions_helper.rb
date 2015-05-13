@@ -7,7 +7,7 @@ module SessionsHelper
 		self.current_user = user
 	end
 
-	def current_user = (user)
+	def current_user=(user)
 		@current_user = user
 	end 
 
@@ -19,13 +19,6 @@ module SessionsHelper
     	!current_user.nil?
   	end
 
-
-  	#deconnexion
-  	def sign_out
-  		cookies.delete(:remember_token)
-  		self.current_user = nil
-  	end
-
 	private
 		def user_from_remember_token
 			User.authenticate_with_salt(*remember_token)
@@ -34,4 +27,13 @@ module SessionsHelper
 		def remember_token
 			cookies.signed[:remember_token] || [nil, nil]
 		end
+
+
+	#deconnexion
+  	def sign_out
+  		cookies.delete(:remember_token)
+  		self.current_user = nil
+  	end
+
+
 end
