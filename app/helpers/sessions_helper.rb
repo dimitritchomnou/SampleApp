@@ -35,5 +35,29 @@ module SessionsHelper
   		self.current_user = nil
   	end
 
+  	def current_user?(user)
+  		user == current_user
+  	end
+
+  	def deny_access
+  		store_location #ajoute le chemin complet de la requête
+  		redirect_to signin_path, :notice => "Identifier vous avant de rejoindre cette page"
+  	end
+
+  	def redirect_back_or(default) #accèle la redirection
+  		redirect_to(session[:return_to] || default)
+  		clear_return_to
+  	end
+
+
+  	private
+
+  	def store_location
+  		session[:return_to] = request.fullpath
+  	end
+
+  	def clear_return_to
+  		session[:return_to] = nil
+  	end
 
 end

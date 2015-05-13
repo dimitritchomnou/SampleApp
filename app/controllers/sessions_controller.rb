@@ -14,7 +14,8 @@ class SessionsController < ApplicationController
   	else
   		#Authentification et redirection vers une autre page
   		sign_in user
-  		redirect_to user
+  		#redirect_to user
+      redirect_back_or user
   	end
 
   end
