@@ -1,12 +1,22 @@
 Rails.application.routes.draw do
 
+  get 'sessions/new'
+
   #ajout de la ressources users pour 
   #faire fonctionner Url de l'utilisateur
   resources :users
 
+  #sessions
+  resources :sessions, :only => [:new, :create, :destroy]
+
   get 'users/new'
   #route pour inscription
   get '/signup' => 'users#new'
+
+  #create new sessions
+  get '/signin' => 'sessions#new'
+  #delete sessions
+  get '/signout' => 'sessions#destroy'
 
   #Add routes home
   root 'pages#home'

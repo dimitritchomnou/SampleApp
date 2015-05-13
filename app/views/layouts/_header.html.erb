@@ -1,16 +1,24 @@
 <!-- Ajout du _header  -->
 <header>
-	<!-- Var logo pour la balise logo -->
-	<% logo = image_tag("http://railstutorial.org/images/sample_app/logo.png", :alt => "Application exemple", :class => "round") %>
 	<!-- Lien pour le logo -->
 	<%= link_to logo, root_path %>
 	<nav class="round">
 		<ul>
 			<!-- Lien page home -->
 			<li><%= link_to "Accueil", root_path %></li>
+			<!-- Lien vers le profil -->
+			<% if signed_in? %>
+      		<li><%= link_to "Profil", current_user %></li>
+      		<% end %>
 			<!-- Lien page help -->
 			<li><%= link_to "Aide", pages_help_path %></li>
-			<li><%= link_to "S'identifier", '#' %></li>
+			<!-- Authentification -->
+			<% if signed_in? %>
+			<li><%= link_to "Déconnexion", signout_path, :method => :delete  %></li>
+			<% else %>
+			<li><%= link_to "S'identifier", signin_path %></li>
+			<% end %>
+			<!-- Authentification -->
 		</ul>
 	</nav>
 </header>
