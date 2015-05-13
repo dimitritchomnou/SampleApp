@@ -1,12 +1,23 @@
 class UsersController < ApplicationController
   #restreindre l'action edit et update avant tte action du contrôleur
-  before_filter :authenticate, :only => [:edit, :update]
+  before_filter :authenticate, :only => [:index, :edit, :update]
   before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user,   :only => :destroy
+
+
+  #suppression des users
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "utilisateurs supprimé."
+    redirect_to users_path
+  end
   
   def index
     @titre = "Tous les utilisateurs"
-    @users = User.all
+    #@users = User.all
+     @users = User.paginate(:page => params[:page])
   end
+
 
 
   #Action pour Unscription d'un User
@@ -15,6 +26,7 @@ class UsersController < ApplicationController
   	@user = User.new
   	@titre = "Inscription"
   end
+
 
   #Action pour afficher un Users
   def show
@@ -37,27 +49,31 @@ class UsersController < ApplicationController
   	end 	
   end
 
+
   def edit
-    #s@user = User.find(params[:id])
-    @titre = "Edition profil"  
+    @user = User.find(params[:id])
+    @titre = "Édition profil"
   end
 
-
+  #Modification du user
   def update
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      flash[:success] = "profil actualisé."
+    if @user.update_attributes(params.require(:user).permit(:password, :password_confirmation))
+      flash[:success] = "Profil actualisé."
       redirect_to @user
     else
-      @titre = "Edition profil"
+      @titre = "Édition profil"
       render 'edit'
     end
   end
 
-  def user_params
-     params[:user].permit :nom, :password, :email, :password_confirmation
-  end
+  private
+    def user_params
+       #params[:user].permit :nom, :email, :password, :password_confirmation
+       params.require(:user).permit :nom, :email, :password, :password_confirmation
 
+    end
+ 
 
   private 
     def authenticate
@@ -67,6 +83,10 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(params[:id])
       redirect_to(root_path) unless current_user?(@user)
+    end
+
+    def admin_user
+      redirect_to(root_path) unless current_user.admin?
     end
 
 end

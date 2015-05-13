@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
                        :length       => { :within => 6..40 }
 
 
+
   #signin
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
