@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   #ajout de la ressources users pour 
   #faire fonctionner Url de l'utilisateur
   resources :users
-
   #sessions
   resources :sessions, :only => [:new, :create, :destroy]
 
@@ -16,7 +15,7 @@ Rails.application.routes.draw do
   #create new sessions
   get '/signin' => 'sessions#new'
   #delete sessions
-  get '/signout' => 'sessions#destroy'
+  get '/signout' => 'sessions#destroy', via: 'delete' #include méthod delete
 
   #Add routes home
   root 'pages#home'

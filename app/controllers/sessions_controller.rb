@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
 
   #detruire une session
   def destroy
+    
   	sign_out
   	#redirection vers la page index
   	redirect_to root_path

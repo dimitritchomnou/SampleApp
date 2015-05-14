@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 
   #suppression des users
   def destroy
+    @titre = "supprimer"
     User.find(params[:id]).destroy
     flash[:success] = "utilisateurs supprimé."
     redirect_to users_path
@@ -44,7 +45,7 @@ class UsersController < ApplicationController
   		flash[:success] = "Bienvenue dans l'application exemple!"
   		redirect_to @user
   	else
-  		@titre = "Inscription"
+  		@titre = "Sign up"
   		render 'new' 		
   	end 	
   end
