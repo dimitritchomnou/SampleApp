@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users
   #sessions
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :microposts, :only => [:create, :destroy]
 
   get 'users/new'
   #route pour inscription

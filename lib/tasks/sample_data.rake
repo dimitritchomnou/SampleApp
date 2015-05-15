@@ -1,24 +1,66 @@
-require 'faker'
+# require 'faker'
 
-namespace :db do
-  desc "Peupler la base de données"
-  task :populate => :environment do
-    Rake::Task['db:reset'].invoke
-   administrateur = User.create!(:nom => "Utilisateur exemple",
-                 :email => "example@railstutorial.org",
-                 :password => "foobar",
-                 :password_confirmation => "foobar")
-    administrateur.toggle!(:admin)
+# namespace :db do
+#   desc "Remplissage de la base de données avec des messages fictifs"
+#   task :populate => :environment do
+#     Rake::Task['db:reset'].invoke
+#     administrateur = User.create!(:nom => "Utilisateur exemple",
+#                  :email => "example@railstutorial.org",
+#                  :password => "foobar",
+#                  :password_confirmation => "foobar")
+#     administrateur.toggle!(:admin)
+
+#     # users = User.all(limit: 6)
+
+#     # 50.times do
+#     #     content = Faker::Lorem.sentence(5)
+#     #     users.each { |user| user.microposts.create!(content: content) }
+#     # end
 
     
-    99.times do |n|
-      nom  = Faker::Name.name
-      email = "example-#{n+1}@railstutorial.org"
-      password  = "motdepasse"
-      User.create!(:nom => nom,
-                   :email => email,
-                   :password => password,
-                   :password_confirmation => password)
-    end
+#     99.times do |n|
+#       nom  = Faker::Name.name
+#       email = "example-#{n+1}@railstutorial.org"
+#       password  = "motdepasse"
+#       User.create!(:nom => nom,
+#                    :email => email,
+#                    :password => password,
+#                    :password_confirmation => password)
+#     end  
+#   end
+# end
+
+#require 'faker'
+namespace :db do
+  desc "Fill database with sample data"
+  task populate: :environment do
+    make_users
+    make_microposts
+    #make_relationships
+  end
+end
+
+def make_users
+  admin = User.create!(nom:     "Example User",
+                       email:    "example@railstutorial.org",
+                       password: "foobar",
+                       password_confirmation: "foobar",
+                       admin: true)
+  99.times do |n|
+    nom  = Faker::Name.name
+    email = "example-#{n+1}@railstutorial.org"
+    password  = "password"
+    User.create!(nom:     nom,
+                 email:    email,
+                 password: password,
+                 password_confirmation: password)
+  end
+end
+
+def make_microposts
+  users = User.all(limit: 6)
+  50.times do
+    content = Faker::Lorem.sentence(5)
+    users.each { |user| user.microposts.create!(content: content) }
   end
 end

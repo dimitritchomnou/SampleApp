@@ -39,6 +39,11 @@ module SessionsHelper
   		user == current_user
   	end
 
+  	#deplacement de la methode
+  	def authenticate
+      deny_access unless signed_in?
+    end
+
   	def deny_access
   		store_location #ajoute le chemin complet de la requête
   		redirect_to signin_path, :notice => "Identifier vous avant de rejoindre cette page"

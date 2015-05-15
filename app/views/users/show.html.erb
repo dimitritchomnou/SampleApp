@@ -7,11 +7,22 @@
         <%= gravatar_for @user %>
         <%= @user.nom %>
       </h1>
+
+      <!-- Ajout  des micro-messg à la page du Users-- >
+      <% unless @user.microposts.empty? %>
+        <table class="microposts" summary="Micro-messages de l'utilisateur">
+          <%= render @microposts %>
+        </table>
+        <%= will_paginate @microposts %>
+      <% end %>
+
     </td>
+
     <td class="sidebar round">
       <strong>Nom</strong> <%= @user.nom %><br />
        <!-- path d'accès du user ex: /users/1-->
-      <strong>URL</strong>  <%= link_to user_path(@user), @user %>
+      <strong>URL</strong>  <%= link_to user_path(@user), @user %><br />
+      <strong>Messages</strong> <%= @user.microposts.count %>
     </td>
   </tr>
 </table>
