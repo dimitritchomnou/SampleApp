@@ -8,6 +8,16 @@ Rails.application.routes.draw do
   #sessions
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
+  #route pour les relations users
+  resources :relationships, :only => [:create, :destroy]
+
+  #resources pour user/relation
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
 
   get 'users/new'
   #route pour inscription
