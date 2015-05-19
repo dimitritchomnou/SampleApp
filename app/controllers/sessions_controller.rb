@@ -12,13 +12,13 @@ class SessionsController < ApplicationController
   		flash.now[:error] = "Combinaison email/mot de passe invalide!"
   		@titre = "S'identifier"
   		render 'new'
-  	else
+
+    else
   		#Authentification et redirection vers une autre page
   		sign_in user
   		#redirect_to user
       redirect_back_or user
   	end
-
   end
 
   #detruire une session

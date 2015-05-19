@@ -4,13 +4,14 @@ Rails.application.routes.draw do
 
   #ajout de la ressources users pour 
   #faire fonctionner Url de l'utilisateur
-  resources :users
+  #resources :users
   #sessions
   resources :sessions, :only => [:new, :create, :destroy]
   resources :microposts, :only => [:create, :destroy]
   #route pour les relations users
   resources :relationships, :only => [:create, :destroy]
-
+ 
+ 
   #resources pour user/relation
   resources :users do
     member do
@@ -25,8 +26,12 @@ Rails.application.routes.draw do
 
   #create new sessions
   get '/signin' => 'sessions#new'
-  #delete sessions
+
+  post '/signin' => 'sessions#create'
+  #delete sessions 
   get '/signout' => 'sessions#destroy', via: 'delete' #include méthod delete
+
+
 
   #Add routes home
   root 'pages#home'

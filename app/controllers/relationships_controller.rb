@@ -3,8 +3,8 @@ class RelationshipsController < ApplicationController
 
 	def create
 		@user = User.find(params[:relationship][:followed_id])
+		#@user = User.find(params[:followed_id])
 		current_user.follow!(@user)
-		#redirect_to @user
 		#reponse a une requête Ajax 
 		respond_to do |format|
 			format.html { redirect_to @user }
@@ -13,7 +13,7 @@ class RelationshipsController < ApplicationController
 	end
 
 	def destroy
-		@user = relationship.find(params[:id]).followed
+		@user = Relationship.find(params[:id]).followed
 		current_user.unfollow!(@user)
 		#redirect_to @user
 		#reponse a une requete ajax

@@ -2,8 +2,6 @@
 <table class="profile" summary="Information profil">
   <tr>
     <td class="main">
-
-      
         <h1>
         	<!-- Gravatar -->
           <%= gravatar_for @user %>
@@ -15,20 +13,17 @@
 
       <!-- Ajout  des micro-messg à la page du Users-- >
       <% unless @user.microposts.empty? %>
-        <table class="microposts" summary="Micro-messages de l'utilisateur">
+        <table class="microposts" summary="Micro-messages du users">
           <%= render @microposts %>
+          <%= will_paginate @microposts %>
         </table>
-        <%= will_paginate @microposts %>
       <% end %>
 
     </td>
-
     <td class="sidebar round">
       <strong>Nom</strong> <%= @user.nom %><br />
-       <!-- path d'accès du user ex: /users/1-->
-      <strong>URL</strong>  <%= link_to user_path(@user), @user %><br />
+      <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
       <strong>Messages</strong> <%= @user.microposts.count %>
-      <%= render 'shared/stats'%>
     </td>
   </tr>
 </table>

@@ -4,19 +4,22 @@ class User < ActiveRecord::Base
 
   has_many :microposts, :dependent => :destroy #Un user possède plusieurs , dependent... detruit un message et son auteur
 
-  #relation User/relations
-  has_many :relationships, :foreign_key => "follower_id",
-                           :class_name => "Relationship", 
+  #Association following(tab user) sur le modèle user avec Has_many:trough
+  has_many :relationships, :class_name => "Relationship",
+                           :foreign_key => "follower_id", 
                            :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed
-  #has_many :followers, :through => :relationships, :source => :follower
 
-  has_many :reverse_relationships, :foreign_key => "followed_id",
-                                   :class_name => "Relationship",
+  # has_many :relationships, :foreign_key => "follower_id", 
+  #                          :dependent => :destroy
+  # has_many :following, :through => :relationships, :source => :followed
+
+  #relations inverse utilisant followed_id coe PK
+  has_many :reverse_relationships, :class_name => "Relationship",
+                                   :foreign_key => "followed_id",
                                    :dependent => :destroy
-  has_many :followers, :through => :reverse_relationships, :source => :follower
-  
-
+ has_many :followers, :through => :reverse_relationships, :source => :follower
+ has_many :following, :through => :relationships, :source => :followed
   
 
 
@@ -67,16 +70,18 @@ class User < ActiveRecord::Base
 
 
   def following?(followed)
-    relationships.find_by_followed_id(followed)
+    relationships.find_by(:followed_id => followed.id)
+    #relationships.include?(followed)
   end
 
-  def follow!(followed)#methode appelantcreate via relationships
-    relationships.create!(:followed_id => followed_id)
+  #methode appelant create via relationships
+  def follow!(followed)
+    relationships.create!(:followed_id => followed.id)
   end
 
   #arrete le suivi d'un user
   def unfollow!(followed)
-    relationships.find_by_followed_id(followed).destroy
+    relationships.find_by(:followed_id => followed.id).destroy
   end
 
 end

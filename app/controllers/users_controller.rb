@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   #restreindre l'action edit et update avant tte action du contrôleur
-  before_filter :authenticate, :only => [:index, :edit, :update]
+  before_filter :authenticate, :only => [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => :destroy
   before_filter :authenticate, :except => [:show, :new, :create]
+
+
 
 
   #Action pour les suivi
@@ -50,7 +52,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
-    #@titre = @user.nom
+    @titre = @user.nom
   end
 
   #Creation d'un new User
