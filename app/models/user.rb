@@ -1,3 +1,7 @@
+
+#for secur password
+require 'digest'
+
 class User < ActiveRecord::Base
 
 	attr_accessor :password
@@ -41,14 +45,25 @@ class User < ActiveRecord::Base
 
 
 
+  #callback
+  before_save :encrypt_password
+
+  #Retourne true si le mot de passe correspond
+  def has_password?(password_soumis)
+    #comparaison avec la version encrypté du password
+    #password_soumis
+    encrypted_password == encrypt(password_soumis)
+  end
+
 
 
   #signin
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
     return nil if user.nil?
-    #return user if user.has_password?(submitted_password)
-    return user.nil? ? nil : user
+    return user if user.has_password?(submitted_password)
+    #Methode qui marche
+    #return user.nil? ? nil : user
   end
 
   def self.authenticate_with_salt(id, cookie_salt)
@@ -83,5 +98,24 @@ class User < ActiveRecord::Base
   def unfollow!(followed)
     relationships.find_by(:followed_id => followed.id).destroy
   end
+
+
+  private 
+    def encrypt_password
+      self.salt = make_salt if new_record?
+      self.encrypted_password = encrypt(password)
+    end
+
+    def encrypt(string)
+      secure_hash("#{salt}--#{string}")
+    end
+
+    def make_salt
+      secure_hash("#{Time.now.utc}--#{password}")
+    end
+
+    def secure_hash(string)
+      Digest::SHA2.hexdigest(string)
+    end
 
 end

@@ -13,6 +13,19 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+#gem 'padrino'
+gem 'responders', '~> 2.0'
+gem 'bootstrap-sass', '~> 2.3.2'
+
+#gem pour pdf
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
+#gem 'bundler', '~> 1.9.9'
+gem 'mocha', '~> 1.1.0'
+gem 'rake', '~> 10.4.2'
+
+#social bouton
+gem 'social-share-button', '~> 0.1.6'
 
 
 
@@ -29,7 +42,9 @@ gem 'gravatar_image_tag', '1.0.0.pre2'
 #gem pour pagination
 gem 'will_paginate'
 # Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+
+gem 'bcrypt', '~> 3.1.7'
+#gem 'bootstrap-on'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -45,7 +60,7 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   #inclusion des donnée d'usine pour des test
-  gem 'factory_girl_rails', '1.0'
+  gem 'factory_girl_rails', '~> 1.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

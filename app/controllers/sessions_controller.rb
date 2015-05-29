@@ -21,6 +21,23 @@ class SessionsController < ApplicationController
   	end
   end
 
+  # def create
+  #   user = User.authenticate(params[:session][:password], 
+  #                            params[:session][:password])
+  #   if user
+  #     sign_in user
+  #     redirect_back_or user
+  #   else
+  #     #Flash d'erreur'
+  #     flash.now[:error] = "Combinaison email/mot de passe invalide!"
+  #     @titre = "S'identifier"
+  #     render 'new'
+  #   end
+    
+  # end
+
+
+
   #detruire une session
   def destroy
     

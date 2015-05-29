@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  #respond_to :html, :js
+
+
   #restreindre l'action edit et update avant tte action du contrôleur
   before_filter :authenticate, :only => [:index, :edit, :update, :destroy, :following, :followers]
   before_filter :correct_user, :only => [:edit, :update]
@@ -47,18 +50,30 @@ class UsersController < ApplicationController
   	@titre = "Inscription"
   end
 
-
   #Action pour afficher un Users
   def show
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])
     @titre = @user.nom
+
+    #format pour Pdf
+    # respond_to do |format|
+    #   format.html{ render :show }
+    #   format.pdf {
+    #     render :pdf => "show", :layout => 'pdf.html'
+    #   }
+    # end
   end
 
   #Creation d'un new User
   def create
   	@user = User.new(user_params)
   	if @user.save
+
+      #validation pour envoi de mail
+      #avec la methode deliver_now
+      UserMailer.welcome_email(@user).deliver_now
+
       #identification du user après son inscription
       sign_in @user
   		#enregistrement
