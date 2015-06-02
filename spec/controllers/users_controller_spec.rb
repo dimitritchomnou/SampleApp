@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+#Permet de verifier si l'action new reponde
+#A la requête GET
 RSpec.describe UsersController, type: :controller do
 
   describe "GET #new" do
