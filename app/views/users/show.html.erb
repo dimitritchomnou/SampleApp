@@ -1,25 +1,24 @@
 <!-- Show users -->
-<table class="profile" summary="Information profil">
+<table class="table  table-condensed" summary="Information profil">
   <tr>
     <td class="main">
-        <h1>
-        	<!-- Gravatar -->
-          <%= gravatar_for @user %>
-          <%= @user.nom %>
-        </h1>
-      
+      <h1>
+        <!-- Gravatar -->
+        <%= gravatar_for @user %>
+        <%= @user.nom %>
+      </h1>
       <!-- Appel form de suivi-->
       <%= render 'follow_form' if signed_in? %>
-
       <!-- Ajout  des micro-messg à la page du Users-- >
-      <% unless @user.microposts.empty? %>
-        <table class="microposts" summary="Micro-messages du users">
-          <%= render @microposts %>
-          <%= will_paginate @microposts %>
-        </table>
-      <% end %>
 
+      <% unless @user.microposts.empty? %>
+      <%= render :partial => 'microposts/micropost', :collection => @microposts %>
+     <!--  <%= render @microposts %> -->
+      <%= will_paginate @microposts %>
+     
+      <% end %>
     </td>
+
     <td class="sidebar round">
       <strong>Nom</strong> <%= @user.nom %><br />
       <strong>URL</strong> <%= link_to user_path(@user), @user %><br />
@@ -27,5 +26,4 @@
     </td>
   </tr>
 </table>
-
 

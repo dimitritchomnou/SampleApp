@@ -10,6 +10,7 @@ module ApplicationHelper
 	end
 
 	def logo
+		#tag pour insersion du logo
 		image_tag("http://railstutorial.org/images/sample_app/logo.png", :alt => "Application Exemple", :class => "round")
 	end
 end

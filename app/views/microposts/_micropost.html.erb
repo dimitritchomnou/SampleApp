@@ -1,9 +1,12 @@
-<!-- Content Micropost for User -->
-<!-- <tr>
-	<td class="micropost"> -->
-		<span class="content"><%= micropost.content %></span>
-		<span class="timestamp">
-			Posté il y a <%= time_ago_in_words(micropost.created_at) %>.
-		</span>
-<!-- 	</td>
-</tr> -->
+<!-- Message-->
+
+
+<div class="panel panel-default">
+  <div class="panel-heading"><spam class="timestamp">Posté il y a <small><%= time_ago_in_words(micropost.created_at) %></small></spam></div>
+  <div class="panel-body">
+
+    <%= micropost.content %>
+    <hr>
+  </div>
+</div>
+

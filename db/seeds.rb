@@ -1,4 +1,8 @@
 # Users
+# Données de la BD 
+# pour l'admin on 
+# email: example@railstutorial.or
+# password: foobar
 User.create!(nom:  "Example User",
              email: "example@railstutorial.org",
              password:              "foobar",
